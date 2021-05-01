@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from './variable';
 
 const common = StyleSheet.create({
   iconStyle: {
@@ -6,7 +7,7 @@ const common = StyleSheet.create({
     fontSize: 16
   },
   container: {
-    backgroundColor: '#efeff3',
+    backgroundColor: colors.bgGray,
     flex: 1
   },
   center: {

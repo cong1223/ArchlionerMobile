@@ -7,9 +7,14 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import type { Node } from 'react';
 import RootNavigator from './src/navigation/RootNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App: () => Node = () => {
-  return <RootNavigator />;
+  return (
+    <SafeAreaProvider>
+      <RootNavigator />
+    </SafeAreaProvider>
+  );
 };
 
 export default App;

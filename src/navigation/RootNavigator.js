@@ -9,7 +9,6 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import Project from '../pages/tabs/Project';
 import Workflow from '../pages/tabs/Workflow';
-import Logo from '../components/Logo';
 import Mine from '../pages/tabs/Mine';
 import Disk from '../pages/tabs/Disk';
 import Login from '../pages/Login';
@@ -60,7 +59,7 @@ function RootNavigator() {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Tab"
           component={BottomTab}
@@ -74,9 +73,7 @@ function RootNavigator() {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{
-            headerTitle: () => <Logo />
-          }}
+          options={{ header: () => null }}
         />
         {/*配置更多其他的页面*/}
       </Stack.Navigator>
