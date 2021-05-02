@@ -5494,6 +5494,11 @@ react-native-reanimated@^2.1.0:
     mockdate "^3.0.2"
     string-hash-64 "^1.0.3"
 
+react-native-root-siblings@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/react-native-root-siblings/download/react-native-root-siblings-4.1.0.tgz#23305a0f96ebd27cff3667d1cb980684da35e5d1"
+  integrity sha1-IzBaD5br0nz/NmfRy5gGhNo15dE=
+
 react-native-safe-area-context@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/react-native-safe-area-context/download/react-native-safe-area-context-3.2.0.tgz#06113c6b208f982d68ab5c3cebd199ca93db6941"
@@ -5508,6 +5513,13 @@ react-native-size-matters@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npm.taobao.org/react-native-size-matters/download/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
   integrity sha1-JNDPwzWixzD21YvXtD6lpBvktJ8=
+
+react-native-smart-tip@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.nlark.com/react-native-smart-tip/download/react-native-smart-tip-2.3.0.tgz#06435b7d563538bd6106ca7d1c4dc5f1d936e2a7"
+  integrity sha1-BkNbfVY1OL1hBsp9HE3F8dk24qc=
+  dependencies:
+    react-native-root-siblings "^4.1.0"
 
 react-native-vector-icons@^8.1.0:
   version "8.1.0"

@@ -18,12 +18,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 25,
     height: 50,
-    marginBottom: 20,
-    justifyContent: 'center',
-    padding: 20
+    marginBottom: 20
+  },
+  inputContainer: {
+    height: 50,
+    borderBottomWidth: 0
   },
   inputText: {
     height: 50,
+    marginBottom: 0,
+    marginTop: 0,
+    paddingBottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
     color: '#262626'
   },
   forgot: {

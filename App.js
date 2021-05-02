@@ -8,11 +8,14 @@ import React from 'react';
 import type { Node } from 'react';
 import RootNavigator from './src/navigation/RootNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { WRootToastApp } from 'react-native-smart-tip';
 
 const App: () => Node = () => {
   return (
     <SafeAreaProvider>
-      <RootNavigator />
+      <WRootToastApp>
+        <RootNavigator />
+      </WRootToastApp>
     </SafeAreaProvider>
   );
 };
