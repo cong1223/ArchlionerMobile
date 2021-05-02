@@ -1,21 +1,21 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../styles/variable';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
     alignItems: 'center',
     justifyContent: 'center'
   },
   logo: {
     fontWeight: 'bold',
     fontSize: 50,
-    color: '#fb5b5a',
+    color: colors.themeColor,
     marginBottom: 40
   },
   inputView: {
     width: '80%',
-    backgroundColor: '#465881',
+    backgroundColor: '#fff',
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
@@ -24,15 +24,15 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'white',
+    color: '#262626'
   },
   forgot: {
-    color: 'white',
+    color: colors.themeColor,
     fontSize: 11
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#fb5b5a',
+    backgroundColor: colors.themeColor,
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -41,7 +41,10 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   loginText: {
-    color: 'white',
+    color: '#fff'
+  },
+  signUpText: {
+    color: colors.themeColor
   }
 });
 

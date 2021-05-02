@@ -34,13 +34,13 @@ const Login = props => {
         />
       </View>
       <TouchableOpacity>
-        <Text style={styles.forgot}>Forgot Password?</Text>
+        <Text style={styles.forgot}>忘记密码?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={styles.loginText}>登录</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text style={styles.loginText}>Signup</Text>
+        <Text style={styles.signUpText}>注册</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
