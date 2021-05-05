@@ -66,7 +66,8 @@ function RootNavigator() {
           options={({ route }) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '项目中心';
             return {
-              headerTitle: <Text>{routeName}</Text>
+              headerTitle: <Text>{routeName}</Text>,
+              headerBack: false
             };
           }}
         />

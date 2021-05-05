@@ -5,6 +5,8 @@ import { Avatar, ListItem } from 'react-native-elements';
 import common from '../../../styles/common';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../styles/variable';
+import keys from '../../../config/keys';
+import Storage from '../../../utils/storage';
 
 const Mine = props => {
   const { navigation } = props;
@@ -33,7 +35,9 @@ const Mine = props => {
   ];
 
   const handleClickListItem = item => {
-    navigation.navigate(item.toPage);
+    Storage.delete(keys.LOGIN_PARAMS).then(res => {
+      navigation.navigate(item.toPage);
+    });
   };
 
   return (

@@ -4,7 +4,6 @@ import BaseService from './abstract/BaseService';
  * 日志相关
  */
 class UserService extends BaseService {
-
   /**
    * 登录
    * @param username: 账号
