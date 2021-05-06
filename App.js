@@ -9,14 +9,18 @@ import type { Node } from 'react';
 import RootNavigator from './src/navigation/RootNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { WRootToastApp } from 'react-native-smart-tip';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 const App: () => Node = () => {
   return (
-    <SafeAreaProvider>
-      <WRootToastApp>
-        <RootNavigator />
-      </WRootToastApp>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <WRootToastApp>
+          <RootNavigator />
+        </WRootToastApp>
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 

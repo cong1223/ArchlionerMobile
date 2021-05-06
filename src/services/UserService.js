@@ -14,6 +14,9 @@ class UserService extends BaseService {
       this.post(this.baseUrl + 'sys/login', { username, password })
     );
   }
+  getUserInfo() {
+    return super.output(this.get(this.baseUrl + 'userInfo/user'));
+  }
 }
 
 export default new UserService();

@@ -7,15 +7,19 @@ import { WToast } from 'react-native-smart-tip';
 import Storage from '../../utils/storage';
 import keys from '../../config/keys';
 import SplashScreen from 'react-native-splash-screen';
+import { setAccountInfo } from '../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
 
 const Login = props => {
   const { navigation } = props;
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   const handleLogin = () => {
     UserService.login(userName, password)
       .then(res => {
         Storage.setItem(keys.LOGIN_PARAMS, { userName, password });
+        dispatch(setAccountInfo(res));
         navigation.reset({
           index: 0,
           routes: [{ name: 'Tab' }]
@@ -33,6 +37,7 @@ const Login = props => {
         setPassword(value.password);
         setTimeout(() => {
           UserService.login(value.userName, value.password).then(res => {
+            dispatch(setAccountInfo(res));
             navigation.reset({
               index: 0,
               routes: [{ name: 'Tab' }]

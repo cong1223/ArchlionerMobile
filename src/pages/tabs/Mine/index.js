@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 import { Avatar, ListItem } from 'react-native-elements';
@@ -7,9 +7,19 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../../styles/variable';
 import keys from '../../../config/keys';
 import Storage from '../../../utils/storage';
+import { useSelector } from 'react-redux';
 
 const Mine = props => {
   const { navigation } = props;
+  const userInfo = useSelector(state => state.userReducer.userInfo);
+  const enterpriseList = useSelector(
+    state => state.userReducer.enterpriseVoList
+  );
+  const curEnterprise = useMemo(() => {
+    return enterpriseList.find(
+      enterprise => enterprise.enterpriseId === userInfo.curEnterpriseId
+    );
+  }, [userInfo, enterpriseList]);
   const list = [
     {
       title: '通讯录',
@@ -43,16 +53,28 @@ const Mine = props => {
   return (
     <View style={common.container}>
       <View style={styles.userInfoContainer}>
-        <Avatar
-          size="large"
-          rounded
-          icon={{ name: 'user', type: 'font-awesome' }}
-          overlayContainerStyle={{ backgroundColor: 'yellow' }}
-          containerStyle={styles.avatar}
-        />
-        <Text style={styles.userName}>小聪忙</Text>
+        {userInfo.avatar ? (
+          <Avatar
+            size="large"
+            rounded
+            icon={{ name: 'user', type: 'font-awesome' }}
+            source={{
+              uri: userInfo.avatar
+            }}
+            containerStyle={styles.avatar}
+          />
+        ) : (
+          <Avatar
+            size="large"
+            rounded
+            icon={{ name: 'user', type: 'font-awesome' }}
+            overlayContainerStyle={{ backgroundColor: '#BDBDBD' }}
+            containerStyle={styles.avatar}
+          />
+        )}
+        <Text style={styles.userName}>{userInfo.realname}</Text>
         <Text style={styles.curEnterpriseName}>
-          中国美术学院风景建筑设计研究院
+          {curEnterprise.enterpriseName}
         </Text>
         <Text style={styles.changeEntBtn}>切换企业</Text>
       </View>

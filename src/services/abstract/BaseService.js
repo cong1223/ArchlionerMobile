@@ -1,4 +1,6 @@
 import { BASE_URL } from '../../config/uri';
+import Storage from '../../utils/storage';
+import keys from '../../config/keys';
 export default class BaseService {
   constructor() {
     this.baseUrl = BASE_URL;
@@ -74,11 +76,12 @@ export default class BaseService {
       }
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       fetch(url, {
         headers: {
-          //看后台需求决定配置参数,例如我们后台要求将appId放在这里请求
-          // appId: '1234345656'
+          'x-user-agent': 'web',
+          'x-ent': await Storage.getItem(keys.ENTERPRISE_ID),
+          'x-access-token': await Storage.getItem(keys.X_ACCESS_TOKEN)
         }
       })
         .then(response => response.json())
@@ -93,7 +96,7 @@ export default class BaseService {
   }
   /** * POST 请求，经测试用FormData传递数据也可以 */
   post(url, params) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       fetch(url, {
         method: 'POST',
         headers: {
@@ -102,7 +105,9 @@ export default class BaseService {
           // 'Accept': 'application/json;charset=UTF-8',
           // 'Content-Type': 'multipart/form-data'
           'Content-Type': 'application/json',
-          'x-user-agent': 'web'
+          'x-user-agent': 'web',
+          'x-ent': await Storage.getItem(keys.ENTERPRISE_ID),
+          'x-access-token': await Storage.getItem(keys.X_ACCESS_TOKEN)
         },
         body: JSON.stringify(params)
       })
