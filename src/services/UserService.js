@@ -1,7 +1,7 @@
 import BaseService from './abstract/BaseService';
 
 /**
- * 日志相关
+ * 用户相关
  */
 class UserService extends BaseService {
   /**

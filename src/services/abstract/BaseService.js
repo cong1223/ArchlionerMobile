@@ -1,9 +1,11 @@
 import { BASE_URL } from '../../config/uri';
 import Storage from '../../utils/storage';
 import keys from '../../config/keys';
+import dayjs from 'dayjs';
 export default class BaseService {
   constructor() {
     this.baseUrl = BASE_URL;
+    this.dayjs = dayjs;
   }
 
   output(promise, isTotal = false) {

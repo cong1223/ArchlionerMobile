@@ -5,7 +5,8 @@ import { colors } from '../../../styles/variable';
 const styles = StyleSheet.create({
   container: {
     width: screenSize.width,
-    height: '100%'
+    flex: 1,
+    flexDirection: 'column'
   },
   separator: {
     height: 1
@@ -26,6 +27,12 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1
   },
+  listItemContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 1
+  },
   listItem: {
     width: screenSize.width / 2,
     height: 220,
@@ -45,7 +52,13 @@ const styles = StyleSheet.create({
   },
   createTimeText: {
     fontSize: 12,
-    color: '#8c8c8c',
+    color: '#8c8c8c'
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 15
   }
 });
 
