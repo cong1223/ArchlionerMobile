@@ -12,7 +12,7 @@ export function deleteEmptyProperty(obj) {
       if (value === null) {
         delete object[i];
       }
-      this.deleteEmptyProperty(value);
+      deleteEmptyProperty(value);
     } else {
       if (value === '' || value === null || value === undefined) {
         delete object[i];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   FlatList,
@@ -12,24 +12,40 @@ import common from '../../../styles/common';
 import { colors } from '../../../styles/variable';
 import ProjectService from '../../../services/ProjectService';
 import useCallbackState from '../../../hooks/useCallbackState';
+import { debounce } from 'lodash';
+import Empty from '../../../components/Empty';
 
 const Project = () => {
   const [keyword, setKeyword] = useCallbackState('');
+  // 缓存输入框的值,保证函数组件刷新后还能获取到最新的值
+  const keywordRef = useRef(keyword);
+  keywordRef.current = keyword;
   const [projectList, setProjectList] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useCallbackState(1);
   const [total, setTotal] = useState(0);
   const [
     onEndReachedCalledDuringMomentum,
     setOnEndReachedCalledDuringMomentum
   ] = useState(true);
-  const handleSearch = value => {
-    console.log('搜索拉');
+  const handleInputClear = () => {
     setPage(1);
-    getData();
+    setKeyword('', () => {
+      getData();
+    });
   };
-  const handleInputClear = () => {};
+  const handleInputDelay = useCallback(
+    debounce(() => {
+      getData();
+    }, 500),
+    []
+  );
+  const handleInput = val => {
+    setKeyword(val);
+    setPage(1);
+    handleInputDelay();
+  };
   const renderItem = ({ item, index, separators }) => {
     return (
       <TouchableHighlight
@@ -68,7 +84,7 @@ const Project = () => {
   const handleLoadMore = distanceFromEnd => {
     if (!onEndReachedCalledDuringMomentum) {
       if (total > projectList.length) {
-        setPage(page + 1);
+        setPage(prevPage => prevPage + 1);
         setLoadMore(true);
       }
       setOnEndReachedCalledDuringMomentum(true);
@@ -84,8 +100,8 @@ const Project = () => {
       <></>
     );
   };
-  const getData = () => {
-    ProjectService.getProjectList(page, 10, { keyword })
+  const getData = (pageNum = 1) => {
+    ProjectService.getProjectList(pageNum, 10, { keyword: keywordRef.current })
       .then(res => {
         if (res && res.pageInfo && res.pageInfo.total) {
           setTotal(res.pageInfo.total);
@@ -108,7 +124,7 @@ const Project = () => {
   useEffect(() => {
     setRefreshing(true);
     setTimeout(() => {
-      getData();
+      getData(page);
     }, 1500);
   }, [page]);
   return (
@@ -119,9 +135,9 @@ const Project = () => {
         inputContainerStyle={styles.searchInputContainer}
         lightTheme={true}
         placeholder="搜索"
-        onSubmitEditing={handleSearch}
-        onClear={handleInputClear}
-        onChangeText={val => setKeyword(val)}
+        onSubmitEditing={() => getData()}
+        onClear={() => handleInputClear()}
+        onChangeText={handleInput}
         value={keyword}
       />
       <FlatList
@@ -137,6 +153,7 @@ const Project = () => {
         onMomentumScrollBegin={() => {
           setOnEndReachedCalledDuringMomentum(false);
         }}
+        ListEmptyComponent={() => <Empty />}
         ItemSeparatorComponent={
           // eslint-disable-next-line no-undef
           Platform.OS !== 'android' &&
