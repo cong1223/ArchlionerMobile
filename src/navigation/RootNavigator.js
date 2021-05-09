@@ -12,6 +12,7 @@ import Workflow from '../pages/tabs/Workflow';
 import Mine from '../pages/tabs/Mine';
 import Disk from '../pages/tabs/Disk';
 import Login from '../pages/Login';
+import ProjectDetail from '../pages/ProjectDetail';
 import common from '../styles/common';
 
 function BottomTab() {
@@ -71,9 +72,16 @@ function RootNavigator() {
             };
           }}
         />
+        {/*登录页面*/}
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{ header: () => null }}
+        />
+        {/*项目中心详情页*/}
+        <Stack.Screen
+          name="ProjectDetail"
+          component={ProjectDetail}
           options={{ header: () => null }}
         />
         {/*配置更多其他的页面*/}

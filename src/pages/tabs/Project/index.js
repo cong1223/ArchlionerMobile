@@ -15,7 +15,8 @@ import useCallbackState from '../../../hooks/useCallbackState';
 import { debounce } from 'lodash';
 import Empty from '../../../components/Empty';
 
-const Project = () => {
+const Project = props => {
+  const { navigation } = props;
   const [keyword, setKeyword] = useCallbackState('');
   // 缓存输入框的值,保证函数组件刷新后还能获取到最新的值
   const keywordRef = useRef(keyword);
@@ -49,9 +50,7 @@ const Project = () => {
   const renderItem = ({ item, index, separators }) => {
     return (
       <TouchableHighlight
-        // onPress={() => this._onPress(item)}
-        onShowUnderlay={separators.highlight}
-        onHideUnderlay={separators.unhighlight}
+        onPress={() => navigation.navigate('ProjectDetail', item)}
       >
         <View style={styles.listItem}>
           <Text
@@ -71,7 +70,6 @@ const Project = () => {
     );
   };
   const handleRefresh = () => {
-    console.log('下拉刷新');
     setRefreshing(true);
     if (page === 1) {
       setTimeout(() => {
