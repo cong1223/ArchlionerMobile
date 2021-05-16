@@ -14,9 +14,10 @@ import ProjectService from '../../../services/ProjectService';
 import useCallbackState from '../../../hooks/useCallbackState';
 import { debounce } from 'lodash';
 import Empty from '../../../components/Empty';
+import { useNavigation } from '@react-navigation/native';
 
-const Project = props => {
-  const { navigation } = props;
+const Project = () => {
+  const navigation = useNavigation();
   const [keyword, setKeyword] = useCallbackState('');
   // 缓存输入框的值,保证函数组件刷新后还能获取到最新的值
   const keywordRef = useRef(keyword);

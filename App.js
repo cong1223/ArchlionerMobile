@@ -15,6 +15,7 @@ import store from './src/redux/store';
 const App: () => Node = () => {
   return (
     <Provider store={store}>
+      {/*暂时没发现这个有什么卵用(SafeAreaProvider)*/}
       <SafeAreaProvider>
         <WRootToastApp>
           <RootNavigator />
