@@ -1,9 +1,29 @@
 import { StyleSheet } from 'react-native';
-import { screenSize } from '../../utils/tools';
+import { colors } from '../../styles/variable';
 const styles = StyleSheet.create({
-  sideMenuStyle: {
-    width: screenSize.width * 0.75,
-    margin: 0
+  buttonGroup: {
+    height: 28,
+    borderColor: colors.themeColor
+  },
+  buttonGroupText: {
+    color: colors.themeColor
+  },
+  buttonGroupTextActive: {
+    color: '#fff'
+  },
+  searchBarContainer: {
+    width: '100%',
+    backgroundColor: colors.bgGray,
+    borderTopWidth: 0,
+    borderBottomWidth: 0
+  },
+  searchInputContainer: {
+    backgroundColor: '#fff',
+    height: 28
+  },
+  searchInput: {
+    backgroundColor: '#fff',
+    fontSize: 14
   }
 });
 

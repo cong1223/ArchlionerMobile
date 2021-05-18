@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
-import { Header } from 'react-native-elements';
+import { ButtonGroup, Header, SearchBar } from 'react-native-elements';
 import common from '../../styles/common';
-import Modal from 'react-native-modal';
 import SideMenu from './SideMenu';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import Drawer from '../../components/Drawer';
 
 const ProjectDetail = props => {
-  const { route } = props;
+  const route = useRoute();
   console.log('路由参数', route.params);
-  const [visible, setVisible] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const navigation = useNavigation();
-  const callParentScreenFunction = () => {
-    setVisible(false);
-  };
-  const toggleSideMenu = () => {
-    setVisible(!visible);
+  const drawerRef = useRef();
+  const updateIndex = index => {
+    setSelectedIndex(index);
   };
   return (
     <View style={common.container}>
@@ -32,26 +30,31 @@ const ProjectDetail = props => {
         centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
         rightComponent={
           <View>
-            <TouchableOpacity onPress={toggleSideMenu}>
+            <TouchableOpacity
+              onPress={() => drawerRef.current.toggleSideMenu()}
+            >
               <Ionicons name="menu" size={24} color={'#fff'} />
             </TouchableOpacity>
           </View>
         }
       />
-      <Modal
-        isVisible={visible}
-        onBackdropPress={toggleSideMenu} // Android back press
-        onSwipeComplete={toggleSideMenu} // Swipe to discard
-        animationIn="slideInLeft" // Has others, we want slide in from the left
-        animationOut="slideOutLeft" // When discarding the drawer
-        swipeDirection="left" // Discard the drawer with swipe to left
-        useNativeDriver // Faster animation
-        hideModalContentWhileAnimating // Better performance, try with/without
-        propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
-        style={styles.sideMenuStyle}
-      >
+      <ButtonGroup
+        onPress={updateIndex}
+        selectedIndex={selectedIndex}
+        buttons={['文件', '流程中心']}
+        containerStyle={styles.buttonGroup}
+        textStyle={styles.buttonGroupText}
+      />
+      <SearchBar
+        containerStyle={styles.searchBarContainer}
+        inputStyle={styles.searchInput}
+        inputContainerStyle={styles.searchInputContainer}
+        lightTheme={true}
+        placeholder="搜索"
+      />
+      <Drawer ref={drawerRef}>
         <SideMenu />
-      </Modal>
+      </Drawer>
     </View>
   );
 };
