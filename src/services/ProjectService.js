@@ -38,5 +38,41 @@ class ProjectService extends BaseService {
     }
     return result;
   }
+
+  /**
+   * 获取项目列表
+   * @param projectId: 项目id
+   * @param parentId: 父级id
+   * @param pageSize:
+   * @param pageNum:
+   * @param isFolder: 是否只要文件夹（0--否；1--是）
+   * @param desc: 0-正序;1--倒叙
+   * @param order: 	排序字段(name,time,size)
+   * @returns {Promise<T>}
+   */
+  async getProResList(
+    projectId,
+    parentId = 0,
+    pageNum = 1,
+    pageSize = 10,
+    isFolder = 0,
+    desc,
+    order
+  ) {
+    let params = {
+      projectId,
+      parentId,
+      enterpriseId: await Storage.getItem(keys.ENTERPRISE_ID),
+      pageSize,
+      pageNum,
+      isFolder,
+      desc,
+      order
+    };
+    params = deleteEmptyProperty(params);
+    return super.output(
+      this.get(this.baseUrl + '/v2/proRes/getProResList', params)
+    );
+  }
 }
 export default new ProjectService();

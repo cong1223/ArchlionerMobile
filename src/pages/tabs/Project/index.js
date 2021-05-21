@@ -15,6 +15,7 @@ import useCallbackState from '../../../hooks/useCallbackState';
 import { debounce } from 'lodash';
 import Empty from '../../../components/Empty';
 import { useNavigation } from '@react-navigation/native';
+import RefreshableList from '../../../components/RefreshableList';
 
 const Project = () => {
   const navigation = useNavigation();
@@ -89,16 +90,6 @@ const Project = () => {
       setOnEndReachedCalledDuringMomentum(true);
     }
   };
-  const renderFooter = () => {
-    return loadMore ? (
-      <View style={styles.footer}>
-        <ActivityIndicator />
-        <Text>正在加载更多数据...</Text>
-      </View>
-    ) : (
-      <></>
-    );
-  };
   const getData = (pageNum = 1) => {
     ProjectService.getProjectList(pageNum, 10, { keyword: keywordRef.current })
       .then(res => {
@@ -139,31 +130,41 @@ const Project = () => {
         onChangeText={handleInput}
         value={keyword}
       />
-      <FlatList
-        style={{ flexGrow: 1 }}
-        contentContainerStyle={{ flexGrow: 1 }}
+      <RefreshableList
+        numColumns={2}
+        loadMore={loadMore}
         data={projectList}
-        numColumns="2"
         renderItem={renderItem}
         refreshing={refreshing}
         onRefresh={handleRefresh}
         onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.2}
-        onMomentumScrollBegin={() => {
-          setOnEndReachedCalledDuringMomentum(false);
-        }}
-        ListEmptyComponent={() => <Empty />}
-        ItemSeparatorComponent={
-          // eslint-disable-next-line no-undef
-          Platform.OS !== 'android' &&
-          (({ highlighted }) => (
-            <View
-              style={[styles.separator, highlighted && { marginLeft: 0 }]}
-            />
-          ))
-        }
-        ListFooterComponent={renderFooter}
+        setEndReachedCalled={() => setOnEndReachedCalledDuringMomentum(false)}
       />
+      {/*<FlatList*/}
+      {/*  style={{ flexGrow: 1 }}*/}
+      {/*  contentContainerStyle={{ flexGrow: 1 }}*/}
+      {/*  data={projectList}*/}
+      {/*  numColumns="2"*/}
+      {/*  renderItem={renderItem}*/}
+      {/*  refreshing={refreshing}*/}
+      {/*  onRefresh={handleRefresh}*/}
+      {/*  onEndReached={handleLoadMore}*/}
+      {/*  onEndReachedThreshold={0.2}*/}
+      {/*  onMomentumScrollBegin={() => {*/}
+      {/*    setOnEndReachedCalledDuringMomentum(false);*/}
+      {/*  }}*/}
+      {/*  ListEmptyComponent={() => <Empty />}*/}
+      {/*  ItemSeparatorComponent={*/}
+      {/*    // eslint-disable-next-line no-undef*/}
+      {/*    Platform.OS !== 'android' &&*/}
+      {/*    (({ highlighted }) => (*/}
+      {/*      <View*/}
+      {/*        style={[styles.separator, highlighted && { marginLeft: 0 }]}*/}
+      {/*      />*/}
+      {/*    ))*/}
+      {/*  }*/}
+      {/*  ListFooterComponent={renderFooter}*/}
+      {/*/>*/}
     </View>
   );
 };
