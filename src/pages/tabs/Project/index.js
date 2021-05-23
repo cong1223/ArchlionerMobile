@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  View,
-  FlatList,
-  TouchableHighlight,
-  Text,
-  ActivityIndicator
-} from 'react-native';
+import { View, TouchableHighlight, Text } from 'react-native';
 import styles from './styles';
 import { SearchBar } from 'react-native-elements';
 import common from '../../../styles/common';
@@ -13,7 +7,6 @@ import { colors } from '../../../styles/variable';
 import ProjectService from '../../../services/ProjectService';
 import useCallbackState from '../../../hooks/useCallbackState';
 import { debounce } from 'lodash';
-import Empty from '../../../components/Empty';
 import { useNavigation } from '@react-navigation/native';
 import RefreshableList from '../../../components/RefreshableList';
 
@@ -140,31 +133,6 @@ const Project = () => {
         onEndReached={handleLoadMore}
         setEndReachedCalled={() => setOnEndReachedCalledDuringMomentum(false)}
       />
-      {/*<FlatList*/}
-      {/*  style={{ flexGrow: 1 }}*/}
-      {/*  contentContainerStyle={{ flexGrow: 1 }}*/}
-      {/*  data={projectList}*/}
-      {/*  numColumns="2"*/}
-      {/*  renderItem={renderItem}*/}
-      {/*  refreshing={refreshing}*/}
-      {/*  onRefresh={handleRefresh}*/}
-      {/*  onEndReached={handleLoadMore}*/}
-      {/*  onEndReachedThreshold={0.2}*/}
-      {/*  onMomentumScrollBegin={() => {*/}
-      {/*    setOnEndReachedCalledDuringMomentum(false);*/}
-      {/*  }}*/}
-      {/*  ListEmptyComponent={() => <Empty />}*/}
-      {/*  ItemSeparatorComponent={*/}
-      {/*    // eslint-disable-next-line no-undef*/}
-      {/*    Platform.OS !== 'android' &&*/}
-      {/*    (({ highlighted }) => (*/}
-      {/*      <View*/}
-      {/*        style={[styles.separator, highlighted && { marginLeft: 0 }]}*/}
-      {/*      />*/}
-      {/*    ))*/}
-      {/*  }*/}
-      {/*  ListFooterComponent={renderFooter}*/}
-      {/*/>*/}
     </View>
   );
 };

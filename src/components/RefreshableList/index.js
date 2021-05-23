@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import styles from './styles';
 import Empty from '../Empty';
@@ -18,6 +18,7 @@ const RefreshableList = props => {
   return (
     <FlatList
       {...props}
+      contentContainerStyle={props.data.length ? null : { flexGrow: 1 }}
       onEndReachedThreshold={0.2}
       onMomentumScrollBegin={() => {
         setEndReachedCalled(false);

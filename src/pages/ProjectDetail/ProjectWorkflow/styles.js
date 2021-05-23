@@ -3,8 +3,7 @@ const styles = StyleSheet.create({
   emptyContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
+    alignItems: 'center'
   },
   emptyImage: {
     width: 200,

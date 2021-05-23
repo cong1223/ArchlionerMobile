@@ -70,9 +70,18 @@ class ProjectService extends BaseService {
       order
     };
     params = deleteEmptyProperty(params);
-    return super.output(
-      this.get(this.baseUrl + '/v2/proRes/getProResList', params)
+    const result = await super.output(
+      this.get(this.baseUrl + '/v2/proRes/getProResList', params),
+      true
     );
+    if (result && result.resList && result.resList.total) {
+      result.resList.list.forEach(item => {
+        item.updateTime = this.dayjs(item.updateTime).format(
+          'YYYY-MM-DD HH:mm'
+        );
+      });
+    }
+    return result;
   }
 }
 export default new ProjectService();
