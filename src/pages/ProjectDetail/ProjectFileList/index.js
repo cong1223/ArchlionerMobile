@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, SafeAreaView, SafeAreaViewComponent } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import styles from './styles';
 import { ListItem, SearchBar } from 'react-native-elements';
 import { fileExt2Icon } from '../../../utils/file';
@@ -7,19 +7,14 @@ import RefreshableList from '../../../components/RefreshableList';
 import useCallbackState from '../../../hooks/useCallbackState';
 import ProjectService from '../../../services/ProjectService';
 import { useRoute } from '@react-navigation/native';
-import { screenSize } from '../../../utils/tools';
 
-const ProjectFileList = props => {
+const ProjectFileList = () => {
   const route = useRoute();
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const [page, setPage] = useCallbackState(1);
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
-  const [
-    onEndReachedCalledDuringMomentum,
-    setOnEndReachedCalledDuringMomentum
-  ] = useState(true);
   const renderItem = ({ item, index, separators }) => {
     return (
       <ListItem bottomDivider key={item.resId}>
@@ -45,16 +40,13 @@ const ProjectFileList = props => {
     }
   };
   const handleLoadMore = () => {
-    if (!onEndReachedCalledDuringMomentum) {
-      if (total > dataList.length) {
-        setPage(prevPage => prevPage + 1);
-        setLoadMore(true);
-      }
-      setOnEndReachedCalledDuringMomentum(true);
+    if (total > dataList.length) {
+      setPage(prevPage => prevPage + 1);
+      setLoadMore(true);
     }
   };
   const getData = (pageNum = 1) => {
-    ProjectService.getProResList(route.params.id, 0, page, 10)
+    ProjectService.getProResList(route.params.id, 0, page)
       .then(res => {
         if (res && res.resList && res.resList.total) {
           setTotal(res.resList.total);
@@ -83,7 +75,7 @@ const ProjectFileList = props => {
     }, 1500);
   }, [page]);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <SearchBar
         containerStyle={styles.searchBarContainer}
         inputStyle={styles.searchInput}
@@ -99,9 +91,8 @@ const ProjectFileList = props => {
         onRefresh={handleRefresh}
         onEndReached={handleLoadMore}
         keyExtractor={item => item.resId}
-        setEndReachedCalled={() => setOnEndReachedCalledDuringMomentum(false)}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import MyTheme from '../styles/myTheme';
+import { useTheme } from '@react-navigation/native';
 // 引入三个创建底部导航tab需要的依赖
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,6 +16,7 @@ import Disk from '../pages/tabs/Disk';
 import Login from '../pages/Login';
 import ProjectDetail from '../pages/ProjectDetail';
 import common from '../styles/common';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function BottomTab() {
   const Tab = createBottomTabNavigator();
@@ -58,9 +61,38 @@ function BottomTab() {
 
 function RootNavigator() {
   const Stack = createStackNavigator();
+  const { colors } = useTheme();
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+    <NavigationContainer theme={MyTheme}>
+      {/*screenOptions配置页面导航的默认参数*/}
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: colors.primary
+            },
+            headerTitleStyle: {
+              color: '#FFFF'
+            },
+            headerBackTitleStyle: {
+              color: '#FFFF'
+            },
+            headerBackTitleVisible: false,
+            headerBackImage: () => (
+              <TouchableOpacity onPress={navigation.goBack}>
+                <Ionicons name="arrow-back" size={24} color={'#fff'} />
+              </TouchableOpacity>
+            ),
+            headerLeftContainerStyle: {
+              paddingLeft: 10
+            },
+            headerRightContainerStyle: {
+              paddingRight: 10
+            }
+          };
+        }}
+      >
         <Stack.Screen
           name="Tab"
           component={BottomTab}
@@ -79,11 +111,8 @@ function RootNavigator() {
           options={{ header: () => null }}
         />
         {/*项目中心详情页*/}
-        <Stack.Screen
-          name="ProjectDetail"
-          component={ProjectDetail}
-          options={{ header: () => null }}
-        />
+        {/*如果不需要header的话 => 设置options={{ header: () => null }}*/}
+        <Stack.Screen name="ProjectDetail" component={ProjectDetail} />
         {/*配置更多其他的页面*/}
       </Stack.Navigator>
     </NavigationContainer>

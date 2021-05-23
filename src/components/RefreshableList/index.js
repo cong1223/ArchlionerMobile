@@ -21,7 +21,8 @@ const RefreshableList = props => {
       contentContainerStyle={props.data.length ? null : { flexGrow: 1 }}
       onEndReachedThreshold={0.2}
       onMomentumScrollBegin={() => {
-        setEndReachedCalled(false);
+        // 有些页面遇到第一次加载就触发loadMore的情况,如首页项目中心,遇到此情况需要传递setEndReachedCalled函数控制触发条件
+        setEndReachedCalled ? setEndReachedCalled(false) : null;
       }}
       ListEmptyComponent={() => <Empty />}
       ItemSeparatorComponent={

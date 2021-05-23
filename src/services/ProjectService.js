@@ -54,7 +54,7 @@ class ProjectService extends BaseService {
     projectId,
     parentId = 0,
     pageNum = 1,
-    pageSize = 10,
+    pageSize = 15,
     isFolder = 0,
     desc,
     order

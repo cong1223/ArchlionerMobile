@@ -13,6 +13,10 @@ const common = StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  headerTitleText: {
+    fontSize: 16,
+    color: '#FFF'
   }
 });
 
