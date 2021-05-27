@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+  forwardRef,
+  useImperativeHandle
+} from 'react';
 import { Text, View, Image } from 'react-native';
 import styles from './styles';
 import { ListItem, SearchBar } from 'react-native-elements';
@@ -8,16 +13,42 @@ import useCallbackState from '../../../hooks/useCallbackState';
 import ProjectService from '../../../services/ProjectService';
 import { useRoute } from '@react-navigation/native';
 
-const ProjectFileList = () => {
+const ProjectFileList = forwardRef((props, ref) => {
   const route = useRoute();
+  const { fileStackRef } = props;
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const [page, setPage] = useCallbackState(1);
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
+  const [parentId, setParentId] = useCallbackState(0);
+  // 暴露给父组件调用的方法
+  useImperativeHandle(ref, () => ({
+    backPrevFileStack: () => {
+      fileStackRef.current = fileStackRef.current.slice(0, -1);
+      const parentFolderId = fileStackRef.current.length
+        ? fileStackRef.current.slice(-1)[0]
+        : 0;
+      setPage(1);
+      getData(1, parentFolderId);
+    }
+  }));
+  const handleClickListItem = item => {
+    if (item.isFolder === '1') {
+      setPage(1);
+      setParentId(item.resId, val => {
+        fileStackRef.current = [...fileStackRef.current, item.resId];
+        getData(1, val);
+      });
+    }
+  };
   const renderItem = ({ item, index, separators }) => {
     return (
-      <ListItem bottomDivider key={item.resId}>
+      <ListItem
+        bottomDivider
+        key={item.resId}
+        onPress={() => handleClickListItem(item)}
+      >
         <Image source={fileExt2Icon(item.isFolder, item.fileExt)} />
         <ListItem.Content>
           <Text style={styles.listItemTitle}>{item.resName}</Text>
@@ -45,8 +76,8 @@ const ProjectFileList = () => {
       setLoadMore(true);
     }
   };
-  const getData = (pageNum = 1) => {
-    ProjectService.getProResList(route.params.id, 0, page)
+  const getData = (pageNum = 1, pid = parentId) => {
+    ProjectService.getProResList(route.params.id, pid, page)
       .then(res => {
         if (res && res.resList && res.resList.total) {
           setTotal(res.resList.total);
@@ -65,9 +96,6 @@ const ProjectFileList = () => {
         setLoadMore(false);
       });
   };
-  useEffect(() => {
-    console.log('文件列表', dataList);
-  }, [dataList]);
   useEffect(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -94,6 +122,6 @@ const ProjectFileList = () => {
       />
     </View>
   );
-};
+});
 
 export default ProjectFileList;
