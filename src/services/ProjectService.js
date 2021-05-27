@@ -40,7 +40,7 @@ class ProjectService extends BaseService {
   }
 
   /**
-   * 获取项目列表
+   * 获取项目文件列表
    * @param projectId: 项目id
    * @param parentId: 父级id
    * @param pageSize:
@@ -82,6 +82,39 @@ class ProjectService extends BaseService {
       });
     }
     return result;
+  }
+
+  /**
+   * 搜索项目资源
+   * @param projectId: 项目id
+   * @param keyword: 关键字
+   * @param pageNum:
+   * @param pageSize:
+   * @param enterpriseId: 企业id
+   * @returns {Promise<T>}
+   */
+  async searchProRes(projectId, keyword, pageNum = 1, pageSize = 20) {
+    const params = {
+      projectId,
+      keyword,
+      enterpriseId: await Storage.getItem(keys.ENTERPRISE_ID),
+      pageNum,
+      pageSize
+    };
+    return super.output(
+      this.get(this.baseUrl + '/v2/proRes/searchProRes', params)
+    );
+  }
+
+  /**
+   * 获取项目详情信息
+   * @param projectId: 项目id
+   * @returns {Promise<T>}
+   */
+  getProDetailInfo(projectId) {
+    return super.output(
+      this.get(this.baseUrl + '/v2/proInfo/getProDetailInfo', { projectId })
+    );
   }
 }
 export default new ProjectService();

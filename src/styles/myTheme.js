@@ -7,7 +7,7 @@ const MyTheme = {
     primary: '#0784ff',
     bgGray: '#efeff3',
     text: '#262626',
-    infoText: '#909399'
+    infoText: '#8c8c8c'
   }
 };
 

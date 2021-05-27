@@ -62,7 +62,7 @@ const ProjectDetail = () => {
         <ProjectWorkflow />
       )}
       <Drawer ref={drawerRef}>
-        <SideMenu />
+        <SideMenu {...route.params} />
       </Drawer>
     </View>
   );

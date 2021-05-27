@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { screenSize } from '../../../utils/tools';
+import myTheme from '@/styles/myTheme';
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -9,30 +9,13 @@ const styles = StyleSheet.create({
     margin: 12,
     flex: 1
   },
-  title: {
-    marginTop: 15,
-    marginBottom: 10,
-    color: '#444',
-    fontSize: 14
-  },
-  swithBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  switchText: {
+  listItemLabel: {
     fontSize: 14,
-    color: '#222'
+    color: myTheme.colors.text
   },
-  link: {
-    padding: 5,
-    color: '#892853'
-  },
-  description: {
-    fontSize: 13,
-    color: '#555',
-    marginTop: 12,
-    marginBottom: 6
+  listItemText: {
+    color: myTheme.colors.infoText,
+    fontSize: 11
   }
 });
 

@@ -11,12 +11,21 @@ const common = StyleSheet.create({
     flex: 1
   },
   center: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  columnCenter: {
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
   },
   headerTitleText: {
     fontSize: 16,
     color: '#FFF'
+  },
+  flex: {
+    display: 'flex'
   }
 });
 
