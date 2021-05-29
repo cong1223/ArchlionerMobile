@@ -26,6 +26,20 @@ const common = StyleSheet.create({
   },
   flex: {
     display: 'flex'
+  },
+  flexBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  alignCenter: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  mt8: {
+    marginTop: 8
+  },
+  mr8: {
+    marginRight: 8
   }
 });
 

@@ -5,8 +5,10 @@ import RefreshableList from '../../../../components/RefreshableList';
 import WorkFlowConstants from '../../../../const/WorkFlowConstants';
 import ProjectService from '../../../../services/ProjectService';
 import WorkFlowListItem from '../../../../components/WorkFlowListItem';
+import { useNavigation } from '@react-navigation/native';
 
 const WorkFlowList = memo(props => {
+  const navigation = useNavigation();
   const { actionType, projectId } = props;
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
@@ -14,7 +16,10 @@ const WorkFlowList = memo(props => {
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
   const handleClickListItem = useCallback(item => {
-    console.log('点击某个流程', item);
+    navigation.navigate('ApprovalDetail', {
+      detail: item,
+      actionType
+    });
   }, []);
   const renderItem = ({ item, index, separators }) => {
     return (

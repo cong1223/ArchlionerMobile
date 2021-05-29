@@ -1,18 +1,17 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
-import { ButtonGroup, Header } from 'react-native-elements';
+import { ButtonGroup } from 'react-native-elements';
 import common from '../../styles/common';
 import SideMenu from './SideMenu';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Drawer from '../../components/Drawer';
 import ProjectFileList from './ProjectFileList';
 import ProjectWorkflow from './ProjectWorkflow';
 
 const ProjectDetail = () => {
   const route = useRoute();
-  console.log('路由参数', route.params);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const fileStackRef = useRef([]);
   const navigation = useNavigation();

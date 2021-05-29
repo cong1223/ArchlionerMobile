@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import common from '@/styles/common';
 import styles from './styles';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { screenSize } from '../../../utils/tools';
 import { useTheme } from '@react-navigation/native';
-import ProjectService from '../../../services/ProjectService';
 import WorkFlowConstants from '../../../const/WorkFlowConstants';
 import WorkFlowList from './WorkFlowList';
-import useCallbackState from '../../../hooks/useCallbackState';
 
 const ProjectWorkflow = props => {
   const { projectId } = props;
   const { colors } = useTheme();
   const [index, setIndex] = useState(0);
-  const [dataList, setDataList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [actionType, setActionType] = useState('0');
   const [routes] = React.useState([
     {
       key: 'todo',

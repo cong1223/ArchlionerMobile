@@ -17,6 +17,7 @@ import Login from '../pages/Login';
 import ProjectDetail from '../pages/ProjectDetail';
 import common from '../styles/common';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ApprovalDetail from '../pages/ApprovalDetail';
 
 function BottomTab() {
   const Tab = createBottomTabNavigator();
@@ -113,6 +114,16 @@ function RootNavigator() {
         {/*项目中心详情页*/}
         {/*如果不需要header的话 => 设置options={{ header: () => null }}*/}
         <Stack.Screen name="ProjectDetail" component={ProjectDetail} />
+        {/*审批详情页*/}
+        <Stack.Screen
+          name="ApprovalDetail"
+          component={ApprovalDetail}
+          options={({ route }) => {
+            return {
+              headerTitle: <Text>审批详情</Text>
+            };
+          }}
+        />
         {/*配置更多其他的页面*/}
       </Stack.Navigator>
     </NavigationContainer>

@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 import styles from './styles';
 import { Avatar, ListItem } from 'react-native-elements';
+import { timeAgo } from '@/utils/date';
 
 const WorkFlowListItem = props => {
   const { data, handleClickItem } = props;
@@ -33,7 +34,9 @@ const WorkFlowListItem = props => {
               {data.projectName}
             </ListItem.Subtitle>
           </ListItem.Content>
-          <Text style={styles.listItemSubTitle}>9分钟前</Text>
+          <Text style={styles.listItemSubTitle}>
+            {timeAgo(data.createTime)}
+          </Text>
         </ListItem>
       </View>
     </TouchableHighlight>

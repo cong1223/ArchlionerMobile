@@ -184,5 +184,21 @@ class ProjectService extends BaseService {
       this.get(this.baseUrl + '/v2/record/getPreviewUrl', { recordId })
     );
   }
+
+  /**
+   * 项目中心的流程(与新版的流程中心获取审批详情接口不同!!!)
+   * @param actId
+   * @param formId
+   * @returns {Promise<unknown>}
+   */
+  getApprovalDetail(actId, formId) {
+    const params = {
+      actId,
+      formId
+    };
+    return super.output(
+      this.get(this.baseUrl + '/ApprovalCenter/getApprovalDetail', params)
+    );
+  }
 }
 export default new ProjectService();
