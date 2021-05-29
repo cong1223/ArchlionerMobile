@@ -173,5 +173,16 @@ class ProjectService extends BaseService {
       true
     );
   }
+
+  /**
+   * 获取文件预览地址
+   * @param recordId
+   * @returns {Promise<unknown>}
+   */
+  getPreviewUrl(recordId) {
+    return super.output(
+      this.get(this.baseUrl + '/v2/record/getPreviewUrl', { recordId })
+    );
+  }
 }
 export default new ProjectService();

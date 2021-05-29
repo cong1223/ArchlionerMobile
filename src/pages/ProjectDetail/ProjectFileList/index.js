@@ -2,9 +2,10 @@ import React, {
   useEffect,
   useState,
   forwardRef,
-  useImperativeHandle
+  useImperativeHandle,
+  useRef,
 } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Modal } from 'react-native';
 import styles from './styles';
 import { ListItem, SearchBar } from 'react-native-elements';
 import { fileExt2Icon } from '../../../utils/file';
@@ -12,16 +13,21 @@ import RefreshableList from '../../../components/RefreshableList';
 import useCallbackState from '../../../hooks/useCallbackState';
 import ProjectService from '../../../services/ProjectService';
 import { useRoute } from '@react-navigation/native';
+import ImagePreview from '../../../components/ImagePreview';
+import { WToast } from 'react-native-smart-tip';
 
 const ProjectFileList = forwardRef((props, ref) => {
   const route = useRoute();
   const { fileStackRef } = props;
+  const imagePreview = useRef();
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const [page, setPage] = useCallbackState(1);
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
   const [parentId, setParentId] = useCallbackState(0);
+  const [images, setImages] = useState([]);
+
   // 暴露给父组件调用的方法
   useImperativeHandle(ref, () => ({
     backPrevFileStack: () => {
@@ -40,6 +46,25 @@ const ProjectFileList = forwardRef((props, ref) => {
       setParentId(item.resId, val => {
         fileStackRef.current = [...fileStackRef.current, item.resId];
         getData(1, val);
+      });
+    } else {
+      ProjectService.getPreviewUrl(item.recordId).then(res => {
+        let fileExt;
+        if (!res.previewUrl) {
+          WToast.show({
+            data: '文件打开失败',
+            position: WToast.position.CENTER
+          });
+          return;
+        }
+        if (res.previewUrl.lastIndexOf('/jpeg/') !== -1) {
+          fileExt = 'jpeg';
+        } else if (res.previewUrl.lastIndexOf('/png/') !== -1) {
+          fileExt = 'png';
+        }
+        const previewUrl = res.previewUrl + `400/transform1.${fileExt}`;
+        setImages([{ url: previewUrl }]);
+        imagePreview.current.open();
       });
     }
   };
@@ -121,6 +146,7 @@ const ProjectFileList = forwardRef((props, ref) => {
         onEndReached={handleLoadMore}
         keyExtractor={item => item.resId}
       />
+      <ImagePreview ref={imagePreview} images={images} />
     </View>
   );
 });
