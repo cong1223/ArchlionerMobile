@@ -179,9 +179,12 @@ class ProjectService extends BaseService {
    * @param recordId
    * @returns {Promise<unknown>}
    */
-  getPreviewUrl(recordId) {
+  getPreviewUrl(recordId, fid = null) {
+    const params = {};
+    if (recordId) params.recordId = recordId;
+    if (fid) params.fid = fid;
     return super.output(
-      this.get(this.baseUrl + '/v2/record/getPreviewUrl', { recordId })
+      this.get(this.baseUrl + '/v2/record/getPreviewUrl', params)
     );
   }
 

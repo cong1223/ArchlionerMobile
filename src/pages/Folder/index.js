@@ -1,33 +1,47 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { Text, TouchableOpacity, View, Image } from 'react-native';
 import styles from './styles';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import common from '../../styles/common';
 import { ListItem, SearchBar } from 'react-native-elements';
-import RefreshableList from '../../../components/RefreshableList';
-import useCallbackState from '../../../hooks/useCallbackState';
-import { fileExt2Icon } from '../../../utils/file';
-import UserService from '../../../services/UserService';
-import common from '../../../styles/common';
-import ProjectService from '../../../services/ProjectService';
+import RefreshableList from '../../components/RefreshableList';
+import ImagePreview from '../../components/ImagePreview';
+import useCallbackState from '../../hooks/useCallbackState';
+import { fileExt2Icon } from '../../utils/file';
+import UserService from '../../services/UserService';
+import ProjectService from '../../services/ProjectService';
 import { WToast } from 'react-native-smart-tip';
-import ImagePreview from '../../../components/ImagePreview';
-import { useNavigation } from '@react-navigation/native';
 
-const Disk = props => {
+const Folder = props => {
   const [refreshing, setRefreshing] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const [page, setPage] = useCallbackState(1);
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
-  const [parentId, setParentId] = useCallbackState(0);
-  const fileStackRef = useRef([]);
   const [images, setImages] = useState([]);
   const [
     onEndReachedCalledDuringMomentum,
     setOnEndReachedCalledDuringMomentum
   ] = useState(true);
-  const imagePreview = useRef();
   const navigation = useNavigation();
-
+  const imagePreview = useRef();
+  const route = useRoute();
+  // 设置自定义header
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.headerTitleLeft}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="chevron-back" size={24} color={'#fff'} />
+          <Text style={styles.headerTitleBackText}>{route.params.resName}</Text>
+        </TouchableOpacity>
+      ),
+      headerTitle: () => null
+    });
+  }, [navigation]);
   const handleClickListItem = item => {
     if (item.isFolder === '1') {
       navigation.push('Folder', item);
@@ -89,8 +103,8 @@ const Disk = props => {
       setOnEndReachedCalledDuringMomentum(true);
     }
   };
-  const getData = (pageNum = 1, pid = parentId) => {
-    UserService.getPersonResList(pid, pageNum)
+  const getData = (pageNum = 1) => {
+    UserService.getPersonResList(route.params.perResId, pageNum)
       .then(res => {
         if (res && res.resList && res.resList.total) {
           setTotal(res.resList.total);
@@ -123,7 +137,7 @@ const Disk = props => {
         inputStyle={styles.searchInput}
         inputContainerStyle={styles.searchInputContainer}
         lightTheme={true}
-        placeholder="搜索"
+        placeholder="搜索当前文件夹内文件"
       />
       <RefreshableList
         style={styles.refreshableListContainer}
@@ -141,4 +155,4 @@ const Disk = props => {
   );
 };
 
-export default Disk;
+export default Folder;

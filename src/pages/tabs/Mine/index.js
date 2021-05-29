@@ -46,7 +46,10 @@ const Mine = props => {
 
   const handleClickListItem = item => {
     Storage.delete(keys.LOGIN_PARAMS).then(res => {
-      navigation.navigate(item.toPage);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }]
+      });
     });
   };
 

@@ -18,6 +18,7 @@ import ProjectDetail from '../pages/ProjectDetail';
 import common from '../styles/common';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ApprovalDetail from '../pages/ApprovalDetail';
+import Folder from '../pages/Folder';
 
 function BottomTab() {
   const Tab = createBottomTabNavigator();
@@ -82,7 +83,7 @@ function RootNavigator() {
             headerBackTitleVisible: false,
             headerBackImage: () => (
               <TouchableOpacity onPress={navigation.goBack}>
-                <Ionicons name="arrow-back" size={24} color={'#fff'} />
+                <Ionicons name="chevron-back" size={24} color={'#fff'} />
               </TouchableOpacity>
             ),
             headerLeftContainerStyle: {
@@ -124,6 +125,8 @@ function RootNavigator() {
             };
           }}
         />
+        {/*通用文件夹页面*/}
+        <Stack.Screen name="Folder" component={Folder} />
         {/*配置更多其他的页面*/}
       </Stack.Navigator>
     </NavigationContainer>

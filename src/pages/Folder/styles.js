@@ -1,7 +1,21 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../styles/variable';
+import { colors } from '../../styles/variable';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headerTitleLeft: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  headerTitleBackText: {
+    color: '#fff',
+    fontSize: 14,
+    marginLeft: 8
+  },
   refreshableListContainer: {
     backgroundColor: '#fff',
   },
