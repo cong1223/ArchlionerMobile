@@ -116,5 +116,62 @@ class ProjectService extends BaseService {
       this.get(this.baseUrl + '/v2/proInfo/getProDetailInfo', { projectId })
     );
   }
+
+  /**
+   * 项目中心流程待我审批列表
+   * @param projectId
+   * @param pageNum
+   * @param pageSize
+   * @returns {Promise | Promise<unknown>}
+   */
+  getApprovalListForMe(projectId, pageNum = 1, pageSize = 20) {
+    const params = {
+      projectId,
+      pageNum,
+      pageSize
+    };
+    return super.output(
+      this.get(this.baseUrl + '/ApprovalCenter/getApprovalListForMe', params),
+      true
+    );
+  }
+
+  /**
+   * 项目中心流程我发起的
+   * @param projectId
+   * @param pageNum
+   * @param pageSize
+   * @returns {Promise | Promise<unknown>}
+   */
+  getLaunchByMe(projectId, pageNum = 1, pageSize = 20) {
+    const params = {
+      projectId,
+      pageNum,
+      pageSize
+    };
+    return super.output(
+      this.get(this.baseUrl + '/ApprovalCenter/getLaunchByMe', params),
+      true
+    );
+  }
+
+  /**
+   * 项目中心流程我已审批
+   * @param projectId
+   * @param pageNum
+   * @param pageSize
+   * @returns {Promise | Promise<unknown>}
+   */
+  getApprovedList(projectId, pageNum = 1, pageSize = 20) {
+    const params = {
+      projectId,
+      pageNum,
+      pageSize
+    };
+    return super.output(
+      this.get(this.baseUrl + '/ApprovalCenter/getApprovedList', params),
+      true
+    );
+  }
 }
 export default new ProjectService();

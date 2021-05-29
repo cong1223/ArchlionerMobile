@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
+import myTheme from '@/styles/myTheme';
 const styles = StyleSheet.create({
-  emptyContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+  tabBarContainer: {
+    height: 42,
+    backgroundColor: '#fff'
   },
-  emptyImage: {
-    width: 200,
-    height: 200
+  tabBarIndicator: {
+    backgroundColor: myTheme.colors.primary
   },
-  emptyTipWord: {
-    color: '#8c8c8c'
+  scene: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 export default styles;

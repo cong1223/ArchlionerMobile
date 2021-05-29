@@ -29,6 +29,7 @@ const ProjectFileList = forwardRef((props, ref) => {
       const parentFolderId = fileStackRef.current.length
         ? fileStackRef.current.slice(-1)[0]
         : 0;
+      setParentId(parentFolderId);
       setPage(1);
       getData(1, parentFolderId);
     }

@@ -5547,6 +5547,11 @@ react-native-modal@^11.10.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-pager-view@^5.1.10:
+  version "5.1.10"
+  resolved "https://registry.nlark.com/react-native-pager-view/download/react-native-pager-view-5.1.10.tgz#6ec52b16f4bca9ba3cdbfa442d53620c976db4c2"
+  integrity sha1-bsUrFvS8qbo82/pELVNiDJdttMI=
+
 react-native-ratings@^7.3.0:
   version "7.6.1"
   resolved "https://registry.nlark.com/react-native-ratings/download/react-native-ratings-7.6.1.tgz#b3d8a99a0c12fd6874f7e3c0e492089543d837c8"
@@ -5596,6 +5601,11 @@ react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha1-1H7IVXsbqYjuPqmNAUYwgbYP/0U=
+
+react-native-tab-view@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/react-native-tab-view/download/react-native-tab-view-3.0.1.tgz#7ed8c5c4a0bb48fa8895e612d26e6d545ed03447"
+  integrity sha1-ftjFxKC7SPqIleYS0m5tVF7QNEc=
 
 react-native-vector-icons@^8.1.0:
   version "8.1.0"

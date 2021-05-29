@@ -59,7 +59,7 @@ const ProjectDetail = () => {
       {selectedIndex === 0 ? (
         <ProjectFileList ref={projectFileList} fileStackRef={fileStackRef} />
       ) : (
-        <ProjectWorkflow />
+        <ProjectWorkflow projectId={route.params.id} />
       )}
       <Drawer ref={drawerRef}>
         <SideMenu {...route.params} />
