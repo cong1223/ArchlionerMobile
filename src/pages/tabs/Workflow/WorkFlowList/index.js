@@ -3,9 +3,9 @@ import { View } from 'react-native';
 import common from '@/styles/common';
 import RefreshableList from '../../../../components/RefreshableList';
 import WorkFlowConstants from '../../../../const/WorkFlowConstants';
-import ProjectService from '../../../../services/ProjectService';
 import WorkFlowListItem from '../../../../components/WorkFlowListItem';
 import { useNavigation } from '@react-navigation/native';
+import WorkFlowService from '../../../../services/WorkFlowService';
 
 const WorkFlowList = memo(props => {
   const navigation = useNavigation();
@@ -16,18 +16,14 @@ const WorkFlowList = memo(props => {
   const [total, setTotal] = useState(0);
   const [dataList, setDataList] = useState([]);
   const handleClickListItem = useCallback(item => {
-    navigation.navigate('ApprovalDetail', {
+    navigation.navigate('NewApprovalDetail', {
       detail: item,
       actionType
     });
   }, []);
   const renderItem = ({ item, index, separators }) => {
     return (
-      <WorkFlowListItem
-        data={item}
-        isFromProject={true}
-        handleClickItem={handleClickListItem}
-      />
+      <WorkFlowListItem data={item} handleClickItem={handleClickListItem} />
     );
   };
   const handleRefresh = () => {
@@ -49,7 +45,7 @@ const WorkFlowList = memo(props => {
   const getData = () => {
     switch (actionType) {
       case WorkFlowConstants.ActionType.PENDING_OPERATION_4_USER.value():
-        ProjectService.getApprovalListForMe(projectId, page)
+        WorkFlowService.getTodoList('', page)
           .then(res => {
             console.log('待我审批', res.list);
             if (res && res.total) {
@@ -70,7 +66,7 @@ const WorkFlowList = memo(props => {
           });
         break;
       case WorkFlowConstants.ActionType.LAUNCH_BY_USER.value():
-        ProjectService.getLaunchByMe(projectId, page)
+        WorkFlowService.getLaunchAct('', page)
           .then(res => {
             console.log('我发起的', res.list);
             if (res && res.total) {
@@ -91,7 +87,7 @@ const WorkFlowList = memo(props => {
           });
         break;
       case WorkFlowConstants.ActionType.OPERATED_BY_USER.value():
-        ProjectService.getApprovedList(projectId, page)
+        WorkFlowService.getDoneAct('', page)
           .then(res => {
             console.log('我已审批', res.list);
             if (res && res.total) {

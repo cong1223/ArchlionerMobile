@@ -18,6 +18,7 @@ import ProjectDetail from '../pages/ProjectDetail';
 import common from '../styles/common';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ApprovalDetail from '../pages/ApprovalDetail';
+import NewApprovalDetail from '../pages/NewApprovalDetail';
 import Folder from '../pages/Folder';
 
 function BottomTab() {
@@ -122,6 +123,16 @@ function RootNavigator() {
           options={({ route }) => {
             return {
               headerTitle: <Text>审批详情</Text>
+            };
+          }}
+        />
+        {/*新版流程中心审批详情*/}
+        <Stack.Screen
+          name="NewApprovalDetail"
+          component={NewApprovalDetail}
+          options={({ route }) => {
+            return {
+              headerTitle: <Text>新版流程审批详情</Text>
             };
           }}
         />
