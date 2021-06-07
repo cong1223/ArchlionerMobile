@@ -1,5 +1,6 @@
 import BaseService from './abstract/BaseService';
 import WorkFlowConstants from '../const/WorkFlowConstants';
+import { fileExt2Icon } from '../utils/file';
 
 /**
  * 流程相关
@@ -135,6 +136,26 @@ class WorkFlowService extends BaseService {
         item.shortName = item.taskUserInfo.realname
           ? item.taskUserInfo.realname.slice(-2)
           : '';
+      });
+    }
+    return result;
+  }
+
+  /**
+   * 获取流程文件
+   * @param actId
+   * @returns {Promise<T>}
+   */
+  async getActResList(actId) {
+    const result = await super.output(
+      this.get(this.baseUrl + '/newApproval/getActResList', { actId })
+    );
+    if (result && result.length) {
+      result.forEach(file => {
+        file.icon = fileExt2Icon('0', file.fileExt);
+        file.createTime = this.dayjs(file.createTime).format(
+          'YYYY-MM-DD HH:mm:ss'
+        );
       });
     }
     return result;

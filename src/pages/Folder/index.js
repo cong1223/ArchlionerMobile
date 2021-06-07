@@ -76,9 +76,7 @@ const Folder = props => {
         <Image source={fileExt2Icon(item.isFolder, item.fileExt)} />
         <ListItem.Content>
           <Text style={styles.listItemTitle}>{item.resName}</Text>
-          <Text style={styles.listItemSubTitle}>
-            {item.updateTime}
-          </Text>
+          <Text style={styles.listItemSubTitle}>{item.updateTime}</Text>
         </ListItem.Content>
         {item.isFolder === '1' ? <ListItem.Chevron /> : null}
       </ListItem>

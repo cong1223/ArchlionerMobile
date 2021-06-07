@@ -3,7 +3,7 @@ import { Text, TouchableHighlight, View } from 'react-native';
 import common from '../../styles/common';
 import styles from './styles';
 import { Avatar } from 'react-native-elements';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { timeAgo } from '@/utils/date';
 import WorkFlowConstants from '../../const/WorkFlowConstants';
 import WorkFlowService from '../../services/WorkFlowService';
@@ -12,6 +12,7 @@ const ApprovalDetail = props => {
   const route = useRoute();
   const { detail, actionType } = route.params;
   const [actDetailData, setActDetailData] = useState({});
+  const navigation = useNavigation();
   useEffect(() => {
     console.log(detail, actionType);
     WorkFlowService.getActDetail(detail.id).then(res => {
@@ -77,7 +78,11 @@ const ApprovalDetail = props => {
           </View>
         </TouchableHighlight>
       </View>
-      <TouchableHighlight onPress={() => {}}>
+      <TouchableHighlight
+        onPress={() =>
+          navigation.navigate('ApprovalFileList', { actId: detail.id })
+        }
+      >
         <View
           style={[styles.listItem, styles.fileListItem, common.flexBetween]}
         >

@@ -20,6 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ApprovalDetail from '../pages/ApprovalDetail';
 import NewApprovalDetail from '../pages/NewApprovalDetail';
 import Folder from '../pages/Folder';
+import ApprovalFileList from '../pages/ApprovalFileList';
 
 function BottomTab() {
   const Tab = createBottomTabNavigator();
@@ -138,6 +139,16 @@ function RootNavigator() {
         />
         {/*通用文件夹页面*/}
         <Stack.Screen name="Folder" component={Folder} />
+        {/*审批文件*/}
+        <Stack.Screen
+          name="ApprovalFileList"
+          component={ApprovalFileList}
+          options={({ route }) => {
+            return {
+              headerTitle: <Text>流程文件</Text>
+            };
+          }}
+        />
         {/*配置更多其他的页面*/}
       </Stack.Navigator>
     </NavigationContainer>
