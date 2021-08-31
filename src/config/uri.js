@@ -1,4 +1,4 @@
-const BASE_URL = 'https://test.archlioner.com/hzzk-portal/';
+const BASE_URL = 'https://hzzk.archlioner.com/hzzk-portal/';
 const HZZK_FT_API = 'http://test.archlioner.com/hzzk-ft/';
 const HZZK_ARC_API = 'https://test.archlioner.com/hzzk-arc/';
 const HZZK_SOCKET_API = 'wss://test.archlioner.com';

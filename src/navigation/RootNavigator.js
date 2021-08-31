@@ -21,6 +21,7 @@ import ApprovalDetail from '../pages/ApprovalDetail';
 import NewApprovalDetail from '../pages/NewApprovalDetail';
 import Folder from '../pages/Folder';
 import ApprovalFileList from '../pages/ApprovalFileList';
+import ApprovalTaskTimeline from '../pages/ApprovalTaskTimeline';
 
 function BottomTab() {
   const Tab = createBottomTabNavigator();
@@ -146,6 +147,16 @@ function RootNavigator() {
           options={({ route }) => {
             return {
               headerTitle: <Text>流程文件</Text>
+            };
+          }}
+        />
+        {/*审批记录*/}
+        <Stack.Screen
+          name="ApprovalTaskTimeline"
+          component={ApprovalTaskTimeline}
+          options={({ route }) => {
+            return {
+              headerTitle: <Text>审批记录</Text>
             };
           }}
         />

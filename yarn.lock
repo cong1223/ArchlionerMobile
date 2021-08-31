@@ -5619,6 +5619,11 @@ react-native-tab-view@^3.0.1:
   resolved "https://registry.npm.taobao.org/react-native-tab-view/download/react-native-tab-view-3.0.1.tgz#7ed8c5c4a0bb48fa8895e612d26e6d545ed03447"
   integrity sha1-ftjFxKC7SPqIleYS0m5tVF7QNEc=
 
+react-native-timeline-flatlist@^0.7.6:
+  version "0.7.6"
+  resolved "https://registry.nlark.com/react-native-timeline-flatlist/download/react-native-timeline-flatlist-0.7.6.tgz#85cfbe4c2956bfde9777766b8cc1eaf7fa7857d7"
+  integrity sha1-hc++TClWv96Xd3ZrjMHq9/p4V9c=
+
 react-native-vector-icons@^8.1.0:
   version "8.1.0"
   resolved "https://registry.npm.taobao.org/react-native-vector-icons/download/react-native-vector-icons-8.1.0.tgz?cache=0&sync_timestamp=1614096731115&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-vector-icons%2Fdownload%2Freact-native-vector-icons-8.1.0.tgz#e8ee2b17bc4d9f636da1c6f67feee8e2a850c3d8"

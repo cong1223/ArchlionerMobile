@@ -60,7 +60,13 @@ const ApprovalDetail = props => {
             </Text>
           </View>
         </View>
-        <TouchableHighlight onPress={() => {}}>
+        <TouchableHighlight
+          onPress={() =>
+            navigation.navigate('ApprovalTaskTimeline', {
+              actTaskList: actDetailData.actTaskList
+            })
+          }
+        >
           <View style={[styles.listItem, common.flexBetween]}>
             <View style={[styles.statusContainer, common.center]}>
               <Text style={styles.statusText}>状态</Text>
